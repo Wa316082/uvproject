@@ -1,0 +1,78 @@
+{% extends 'base/app.html' %}
+
+
+{% block content  %}
+
+<section class="py-5 min-vh-100 ">
+    <div class="container px-lg-5">
+        <div class="card mb-3 ">
+            <div class="card-header bg-success d-inline-flex justify-content-between ">
+            <h2 class ="text-light fs-4"> Notice: {{ notice.id}}</h2>
+            <span class = " text-light fs-6">{{ notice.date_added }}</span>
+            </div>
+            <div class="card-body">
+            <h5 class="card-title"> {{ notice.title }} </h5>
+            <p class="card-text"> {{ notice.details }} </p>
+           
+
+            </div>
+        </div>
+        <h4>Comments...</h4>
+        <br>
+      
+
+ {% if not comments.all %}
+ 
+        <h4>Add Comments</h4> 
+        <div class ="form-group col-8 row ">
+            <form method = "POST" action="{%url 'notice' notice.pk %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">comment..</button>
+            </form>
+        </div>
+         {% else %} 
+         <div class ="form-group col-8 row">
+            <form method = "POST" action="{%url 'notice' notice.pk %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">comment..</button>
+            </form>
+        </div>
+        <br>
+        <br> 
+        {% for comment in comments.all %}
+          <div class=" container mb-0">
+               <div class="col-8 row bg-light px-4 py-1 rounded-pill  ">
+                <div class="d-flex align-items-center">
+                    <p class="fw-bold fs-4 ">{{ comment.aothor }} 
+                    <h6 class =" fst-italic fw-lighter fs-6  mx-4"> {{ comment.date_added }}</h6>
+                
+                </div>
+                <div>
+                    <p>{{ comment.body }}</p>
+                </div>
+            </div>
+        </div>
+          <br>
+          <br>
+        {% endfor %}
+        
+        
+
+  {% endif%}
+
+
+         
+    </div>
+</section>
+<script>
+    var name = {{user.id }};
+    document.getElementById("aothor").value = name;
+
+    var notice = {{ notice.id }};
+    document.getElementById("notice").value = notice;
+
+</script>
+
+{% endblock content  %}

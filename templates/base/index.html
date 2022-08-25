@@ -1,0 +1,26 @@
+    {% extends 'base/header.html' %}
+        
+
+   {% block header %}
+      <header class="py-5 min-vh-100">
+        <div class="container px-lg-5">
+            <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+                <div class="m-4 m-lg-5">
+                    <h1 class="display-5 fw-bold text-success">A warm welcome
+                        {%if user.is_authenticated %}
+                        {{ user.username }}
+                        {% endif %}
+                    </h1>
+                    {% if user.is_authenticated%}
+                    <p class="fs-4">Manarat International University Notice Board</p>
+                    {% else %}
+                    <p class="fs-4">To see the update notice login first in your ID</p>
+                    <a class="btn btn-success btn-lg" href="register">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+   
+   {% endblock header %}
+        
